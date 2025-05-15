@@ -1,0 +1,116 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#center{
+    display: flex;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    border: 10px solid #73AD21;
+}
+
+#alienShip{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#fighterPlane{
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+img{
+    height: 50px;
+}
+
+#fighterPlane img{
+    height: 100px;
+}
+
+body {
+  /* background: black; */
+  /* background: url(/asset/top\ view\ of\ battle\ arena.jpg); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#spaceCanvas,
+#marsCanvas,
+#neptuneCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+}
+
+
+.blue-fire-img {
+  width: 200px; /* Adjust as needed */
+  filter: drop-shadow(0 0 10px #00f7ff)
+          drop-shadow(0 0 20px #00f7ff)
+          drop-shadow(0 0 30px #0088ff);
+  animation: flicker 0.2s infinite alternate;
+}
+
+@keyframes flicker {
+  0% {
+    filter: drop-shadow(0 0 10px #00f7ff)
+            drop-shadow(0 0 20px #00f7ff)
+            drop-shadow(0 0 30px #0088ff);
+  }
+  100% {
+    filter: drop-shadow(0 0 15px #00ccff)
+            drop-shadow(0 0 25px #0099ff)
+            drop-shadow(0 0 35px #0066ff);
+  }
+}
+
+.missile-clone {
+  position: absolute;
+  width: 20px;
+  height: 40px;
+}
+
+.missile-clone img {
+  width: 100%;
+  display: block;
+}
+
+.missile-clone .flame {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  width: 12px;
+  height: 20px;
+  background: linear-gradient(to top, red, orange, yellow);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  transform: translateX(-50%) scaleY(1);
+  animation: flickerMissile 0.3s infinite alternate;
+  filter: blur(1.5px);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@keyframes flickerMissile {
+  0% {
+    transform: translateX(-50%) scaleY(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(-50%) scaleY(1.3);
+    opacity: 1;
+  }
+}
