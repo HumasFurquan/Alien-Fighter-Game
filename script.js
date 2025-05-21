@@ -1,4 +1,6 @@
 let center_ = document.getElementById("center")
+let isGameOver = false;
+
 
 // Fighter Plane Logic
 
@@ -7,10 +9,10 @@ let myPlane = document.getElementById("fighterPlane");
 let upDown = myPlane.offsetTop;
 let leftRight = myPlane.offsetLeft;
 
-document.addEventListener("keydown", (movement) => {
-    let step = 10;
+function handlePlayerControls(movement) {
+  let step = 10;
 
-    switch (movement.key) {
+  switch (movement.key) {
     case "ArrowUp":
       upDown -= step;
       break;
@@ -25,23 +27,21 @@ document.addEventListener("keydown", (movement) => {
       break;
   }
 
-  if(leftRight < 82){
+  if (leftRight < 82) {
     leftRight = 82;
-  }
-  else if(leftRight > 1518){
-    leftRight = 1515
-  }
-  else if(upDown > 665){
+  } else if (leftRight > 1518) {
+    leftRight = 1515;
+  } else if (upDown > 665) {
     upDown = 665;
-  }
-  else if(upDown < 355){
+  } else if (upDown < 355) {
     upDown = 355;
   }
 
-  console.log("in");
   myPlane.style.top = upDown + "px";
   myPlane.style.left = leftRight + "px";
-});
+}
+
+document.addEventListener("keydown", handlePlayerControls);
 
 // Alien Ship logic
 
@@ -59,31 +59,36 @@ let flickerDuration = 0.9;
 
 let movementInterval = null;
 
-setInterval(() => {
+let clockInterval = setInterval(() => {
     clock++;
     console.log("clock:", clock);
 
-    if (clock === 5) {
+    if (clock === 10) {
         canvas.style.display = "block";
         canvas.style.opacity = "1";
         drawStars();
     } 
-    else if (clock === 10) {
+    else if (clock === 20) {
         canvas.style.opacity = 0;
     }
-    else if(clock === 12){
-        // marsCanvas.style.display = "block";  // only if it was hidden initially
+    else if(clock === 22){
         marsCanvas.style.opacity = 1;
         animateMars();
     }
-    else if(clock === 17){
+    else if(clock === 32){
         canvas.style.opacity = 0;
     }
-    else if(clock === 19){
+    else if(clock === 34){
         neptuneCanvas.style.opacity = 1;
         animateNeptuneScene();
     }
+
+    // Example: Stop the interval at 40
+    // if (clock === 40) {
+    //     clearInterval(clockInterval);
+    // }
 }, 1000);
+
 
 function callAfterEveryFiveSecond() {
     console.log("callAfterEveryFiveSecond");
@@ -105,12 +110,21 @@ function callAfterEveryFiveSecond() {
 
 setInterval(callAfterEveryFiveSecond, 5000);
 
+setInterval(callAfterEveryFiveSecond, 5000);
+
 function movementOfAlienShip() {
 
     if (leftRightAlienShip < leftRight) {
         leftRightAlienShip += 10;
     } else if (leftRightAlienShip > leftRight) {
         leftRightAlienShip -= 10;
+    }
+    else if(leftRightAlienShip == leftRight){
+
+      // auto lazer logic
+
+      fireLaser(leftRightAlienShip - 15);
+
     }
 
     alienPlane.style.left = leftRightAlienShip + "px";
@@ -119,35 +133,76 @@ function movementOfAlienShip() {
 // Missile Logic
 
 let missile = document.getElementById("missile");
+let nextMissile = 3;
 
+let firstMissile = document.getElementById("topLeftPositionedFirst")
 
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    fireMissile();
+let secondMissile = document.getElementById("topLeftPositionedSecond")
+
+let thirdMissile = document.getElementById("topLeftPositionedThird")
+
+function nextMissileForming(){
+  if(nextMissile < 3){
+    nextMissile++;
+    console.log("increaseing the missile ", nextMissile)
+    if(nextMissile == 1){
+      firstMissile.style.display = "block"
+      // secondMissile.style.display = none
+      // thirdMissile.style.display = none
+    }
+    else if(nextMissile == 2){
+      secondMissile.style.display = "block"
+    }
+    else{
+      thirdMissile.style.display = "block"
+    }
   }
-});
+}
 
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
+setInterval(nextMissileForming, 5000);
+
+let missileLaunchSound = new Audio('./asset/Missile Launch Sound.mp3');
+
+
+
+function handleMissileFire(e) {
+  if (e.code === "Space" && nextMissile != 0) {
     fireMissile();
+    missileLaunchSound.play();
+    nextMissile--;
+    console.log("nextMissile ", nextMissile);
+
+    if(nextMissile == 2){
+      thirdMissile.style.display = "none"
+    }
+    else if(nextMissile == 1){
+      secondMissile.style.display = "none"
+    }
+    else{
+      firstMissile.style.display = "none"
+    }
   }
-});
+}
+
+document.addEventListener("keydown", handleMissileFire);
+
 
 function fireMissile() {
   const originalMissile = document.getElementById("missile");
   const newMissile = originalMissile.cloneNode(true);
   newMissile.removeAttribute("id");
-  newMissile.style.display = "block"; // Make it visible
+  newMissile.style.display = "block";
   newMissile.classList.add("missile-clone");
 
   const plane = document.getElementById("fighterPlane");
   const planeRect = plane.getBoundingClientRect();
-  const centerRect = document.getElementById("center").getBoundingClientRect();
+  const center = document.getElementById("center");
+  const centerRect = center.getBoundingClientRect();
 
   newMissile.style.left = (planeRect.left + planeRect.width / 2 - centerRect.left - 10) + "px";
   newMissile.style.bottom = (window.innerHeight - planeRect.top + 5) + "px";
 
-  document.getElementById("center").appendChild(newMissile);
+  center.appendChild(newMissile);
 
   let position = parseInt(newMissile.style.bottom);
 
@@ -155,12 +210,83 @@ function fireMissile() {
     position += 10;
     newMissile.style.bottom = position + "px";
 
+    // const alien = document.getElementById("alienPlane");
+    if (alienPlane) {
+      const missileRect = newMissile.getBoundingClientRect();
+      const alienRect = alienPlane.getBoundingClientRect();
+
+      // Collision Detection
+      if (
+        missileRect.top < alienRect.bottom &&
+        missileRect.bottom > alienRect.top &&
+        missileRect.left < alienRect.right &&
+        missileRect.right > alienRect.left
+      ) {
+        clearInterval(interval);
+        newMissile.remove();
+        explodeAlien(alienPlane);
+        return;
+      }
+    }
+
     if (position > window.innerHeight + 50) {
       clearInterval(interval);
       newMissile.remove();
     }
   }, 30);
 }
+
+// alienPlane get hit logic
+
+let alienPlaneHitCount = 1;
+let harshRight = document.getElementById("harshRight")
+let harshLeft = document.getElementById("harshLeft")
+let boomSound = new Audio('./asset/Boom Sound.mp3');
+
+function explodeAlien() {
+  const center = document.getElementById("center");
+  harshLeft.style.display = "block"
+  harshRight.style.display = "block"
+
+  // Add vanish animation
+  alienPlane.classList.add("vanish-alien");
+
+  // Add screen shake
+  center.classList.add("shakeScreen");
+
+  boomSound.play();
+
+  // Remove shake after 0.5s
+  setTimeout(() => {
+    center.classList.remove("shakeScreen");
+    harshLeft.style.display = "none"
+    harshRight.style.display = "none"
+  }, 700);
+
+  // Remove old alienPlane after 2s and create new one
+  setTimeout(() => {
+    alienPlane.remove();
+
+    alienPlaneHitCount++;
+
+    // Create new alienPlane
+    const newAlien = document.createElement("img");
+    newAlien.src = `./asset/Alien Ship ${alienPlaneHitCount}.png`; // loads Alien Ship 2.png, Alien Ship 3.png etc.
+    newAlien.id = "alienPlane";
+    newAlien.style.position = "absolute";
+    newAlien.style.width = "80px";
+    newAlien.style.top = "10%";
+    newAlien.style.left = "50%";
+    newAlien.style.transform = "translate(-50%, -50%)";
+    newAlien.style.width = "150px";
+
+    center.appendChild(newAlien);
+
+    // Update the reference
+    alienPlane = newAlien;
+  }, 2000);
+}
+
 
 // space fight
 
@@ -381,3 +507,157 @@ animateMars();
   }
 
   animateNeptuneScene();
+
+  // Three (3) missile at max
+
+  // Automatic lazer throwing logic from alien ship
+
+  let LazerSound = new Audio('./asset/Lazer Sound.mp3');
+  // LazerSound.play();
+
+  function fireLaser(xPos) {
+    if (isGameOver) return; // 🛑 Don't fire lasers after game over
+
+    const laser = document.createElement('div');
+    laser.className = 'laserBeam';
+    laser.style.left = xPos + 'px';
+
+    const container = document.getElementById('gameContainer');
+    container.appendChild(laser);
+
+    if(container){
+      LazerSound.play();
+    }
+
+    let yPos = 80;
+    laser.style.top = yPos + 'px';
+
+    const laserInterval = setInterval(() => {
+        if (isGameOver) {
+            clearInterval(laserInterval);
+            laser.remove();
+            return;
+        }
+
+        yPos += 10;
+        laser.style.top = yPos + 'px';
+
+        const player = myPlane;
+        const playerRect = player.getBoundingClientRect();
+        const laserRect = laser.getBoundingClientRect();
+
+        if (
+            laserRect.left < playerRect.right &&
+            laserRect.right > playerRect.left &&
+            laserRect.top < playerRect.bottom &&
+            laserRect.bottom > playerRect.top
+        ) {
+            clearInterval(laserInterval);
+            laser.remove();
+            onPlayerHitByLaser(); 
+        }
+
+        if (yPos > window.innerHeight) {
+            clearInterval(laserInterval);
+            laser.remove();
+        }
+    }, 30);
+}
+
+
+
+// game over logic
+
+let gameOverSound = new Audio('./asset/Game Over Sound.mp3');
+
+function onPlayerHitByLaser() {
+
+  isGameOver = true; // ⛔ Stop everything from here on
+  gameOverSound.play();
+
+  // Pause all intervals and animations
+  document.body.classList.add("pause-game");
+
+  // Stop any movement logic (clear intervals)
+  // You need to clear any active intervals manually if you have setInterval references
+
+  // Show Game Over screen
+  const gameOverScreen = document.getElementById("gameOverScreen");
+  gameOverScreen.style.display = "block";
+  void gameOverScreen.offsetWidth;
+  gameOverScreen.style.animation = "fadeInBrightness 2s ease forwards, gameOverPop 1s ease-in-out infinite alternate 2s";
+  gameOverScreen.style.animationDelay = "0s, 2s";
+
+  let yourScore = document.getElementById("Your-Score")
+
+  yourScore.innerHTML = `You Score Is ${alienPlaneHitCount - 1}`;
+  yourScore.style.display = "block"
+
+
+  // Optional: stop player input
+  document.removeEventListener("keydown", handlePlayerControls); // if you have a function controlling input
+
+  document.removeEventListener("keydown", handlePlayerControls);
+  document.removeEventListener("keydown", handleMissileFire);
+
+
+  // Optionally reload or reset the game after few seconds
+  // setTimeout(() => location.reload(), 5000); // if you want auto-restart
+
+  let canvas = document.getElementById("spaceCanvas");
+  let ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  canvas.style.opacity = "0"; // hidden initially
+  canvas.style.transition = "opacity 2s ease"; // add transition ONCE
+
+  let stars = [];
+  let starCount = 400;
+
+  for (let i = 0; i < starCount; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      speed: Math.random() * 5 + 2,
+      length: Math.random() * 10 + 5,
+      alpha: Math.random() * 0.5 + 0.5
+    });
+  }
+
+  function drawStars() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let star of stars) {
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(255, 255, 255, ${star.alpha})`;
+      ctx.lineWidth = 1;
+      ctx.moveTo(star.x, star.y);
+      ctx.lineTo(star.x, star.y + star.length);
+      ctx.stroke();
+
+      star.y += star.speed;
+
+      if (star.y > canvas.height) {
+        star.y = 0;
+        star.x = Math.random() * canvas.width;
+        star.speed = Math.random() * 5 + 2;
+        star.length = Math.random() * 10 + 5;
+      }
+    }
+
+    requestAnimationFrame(drawStars);
+  }
+
+  // Only once
+  clearInterval(clockInterval);
+
+  // Start after delay
+  // setTimeout(() => {
+    canvas.style.opacity = "1"; // fade in
+    drawStars();
+  // }, 1000);
+
+}

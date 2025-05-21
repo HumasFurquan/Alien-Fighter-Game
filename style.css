@@ -4,12 +4,60 @@
     box-sizing: border-box;
 }
 
+/* i think i should keep any one either upone or downone , i jush want to remove the scroll bar from entire body or window that's why i am using downone */
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 #center{
     display: flex;
     position: relative;
     width: 100vw;
     height: 100vh;
     border: 10px solid #73AD21;
+}
+
+/* harsh image */
+#harshRight
+{
+    position: absolute;
+    top: 83%;
+    left: 10.5%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+#harshRight img
+{
+    position: absolute;
+    top: 90%;
+    left: 7%;
+    width: 200px; /* or any size you want */
+    height: auto; /* maintain aspect ratio */
+    transform: translate(-50%, -50%);
+}
+
+#harshLeft
+{
+    position: absolute;
+    top: 83%;
+    left: 1555px;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+#harshLeft img
+{
+    position: absolute;
+    top: 90%;
+    right: 7%;
+    width: 200px; /* or any size you want */
+    height: auto; /* maintain aspect ratio */
+    transform: translate(-50%, -50%);
 }
 
 #alienShip{
@@ -78,6 +126,21 @@ body {
   }
 }
 
+#topLeftPositionedFirst{
+  position: absolute;
+  /* display: block; */
+}
+
+#topLeftPositionedSecond{
+  position: absolute;
+  left: 15px;
+}
+
+#topLeftPositionedThird{
+  position: absolute;
+  left: 30px;
+}
+
 .missile-clone {
   position: absolute;
   width: 20px;
@@ -113,4 +176,137 @@ body {
     transform: translateX(-50%) scaleY(1.3);
     opacity: 1;
   }
+}
+
+.vanish-alien {
+  animation: vanishAlien 4s forwards;
+}
+
+@keyframes vanishAlien {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+.shakeScreen {
+  animation: shake 0.5s ease-in-out 0s 10; /* repeat 4 times for stronger shake */
+}
+
+@keyframes shake {
+  0% { transform: translate(5px, 5px); }
+  20% { transform: translate(-5px, -5px); }
+  40% { transform: translate(5px, -5px); }
+  60% { transform: translate(-5px, 5px); }
+  80% { transform: translate(5px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+.alien-shake {
+  animation: alienShake 0.6s ease-in-out 0s 3;
+}
+
+@keyframes alienShake {
+  0% { transform: rotate(0deg) translateX(0); }
+  25% { transform: rotate(10deg) translateX(-10px); }
+  50% { transform: rotate(-10deg) translateX(10px); }
+  75% { transform: rotate(5deg) translateX(-5px); }
+  100% { transform: rotate(0deg) translateX(0); }
+}
+
+
+/* #gameContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+} */
+
+/* #alienPlane {
+  position: absolute;
+  top: 50px;
+  left: 100px;
+  width: 60px;
+  height: 40px;
+  background: green;
+  border-radius: 10px;
+} */
+
+.laserBeam {
+  position: absolute;
+  width: 4px;
+  height: 20px;
+  background: red;
+  top: 90px; /* just below the alien ship */
+  animation: shoot 1s linear forwards;
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(600px);
+  }
+}
+
+/* game over message */
+
+#gameOverScreen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  font-weight: bold;
+  color: red;
+  display: none;
+  z-index: 9999;
+  animation: gameOverPop 1s ease-in-out infinite alternate;
+}
+
+@keyframes gameOverPop {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.pause-game * {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+#Your-Score{
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  font-weight: bold;
+  color: red;
+  display: none;
+  z-index: 9999;
+  animation: gameOverPop 1s ease-in-out infinite alternate;
+}
+
+@keyframes gameOverPop {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.pause-game * {
+  animation-play-state: paused !important;
+  transition: none !important;
 }
