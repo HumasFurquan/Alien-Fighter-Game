@@ -11,12 +11,19 @@ const gameContainer = document.getElementById("gameContainer");
    STATE
 ================================ */
 let alienX = alienPlane.offsetLeft;
-let alienSpeed = 2.5; // smooth following
+let alienSpeed = 1.8;   // VERY slow at start
 let score = 0;
 let isRunning = true;
 
 /* ===============================
-   ALIEN MOVEMENT (FOLLOW PLAYER)
+   DIFFICULTY SETTINGS
+================================ */
+const SPEED_INCREMENT = 0.35;
+const SPEED_CHECK_INTERVAL = 10000; // 10 seconds
+const SPEED_RATIO_LIMIT = 0.85;     // always slower than player
+
+/* ===============================
+   ALIEN MOVEMENT (CHASE PLAYER)
 ================================ */
 export function moveAlien() {
     if (!isRunning) return;
@@ -24,21 +31,33 @@ export function moveAlien() {
     const alienWidth = alienPlane.offsetWidth;
     const containerWidth = movementContainer.clientWidth;
 
-    // 🎯 Target = player's center
     const targetX =
         player.x + player.width / 2 - alienWidth / 2;
 
-    // Smooth follow (no teleport)
     if (alienX < targetX) alienX += alienSpeed;
     else if (alienX > targetX) alienX -= alienSpeed;
 
-    // Stay inside screen
     alienX = Math.max(0, Math.min(alienX, containerWidth - alienWidth));
-
     alienPlane.style.left = alienX + "px";
 
     requestAnimationFrame(moveAlien);
 }
+
+/* ===============================
+   DIFFICULTY SCALING (SAFE)
+================================ */
+setInterval(() => {
+    if (!isRunning) return;
+
+    const maxAllowedSpeed = player.speed * SPEED_RATIO_LIMIT;
+
+    if (alienSpeed + SPEED_INCREMENT < maxAllowedSpeed) {
+        alienSpeed += SPEED_INCREMENT;
+    } else {
+        alienSpeed = maxAllowedSpeed; // clamp safely
+    }
+
+}, SPEED_CHECK_INTERVAL);
 
 /* ===============================
    ALIEN LASER
@@ -54,19 +73,17 @@ function fireLaser() {
     const alienRect = alienPlane.getBoundingClientRect();
     const containerRect = gameContainer.getBoundingClientRect();
 
-    const startX =
-        alienRect.left - containerRect.left + alienRect.width / 2;
-    let startY =
-        alienRect.bottom - containerRect.top;
-
-    laser.style.left = startX + "px";
-    laser.style.top = startY + "px";
+    laser.style.left =
+        alienRect.left - containerRect.left + alienRect.width / 2 + "px";
+    laser.style.top =
+        alienRect.bottom - containerRect.top + "px";
 
     gameContainer.appendChild(laser);
+
     laserSound.currentTime = 0;
     laserSound.play();
 
-    let yPos = startY;
+    let yPos = parseFloat(laser.style.top);
 
     const interval = setInterval(() => {
         yPos += 8;
@@ -96,12 +113,12 @@ function fireLaser() {
 /* ===============================
    LASER TIMER
 ================================ */
-setInterval(() => {
+const laserTimer = setInterval(() => {
     if (isRunning) fireLaser();
-}, 1400);
+}, 1500);
 
 /* ===============================
-   ALIEN HIT + SCORE
+   HIT + SCORE
 ================================ */
 const boomSound = new Audio('./asset/Boom Sound.mp3');
 
@@ -117,4 +134,5 @@ export function getScore() {
 
 export function stopAlien() {
     isRunning = false;
+    clearInterval(laserTimer);
 }
