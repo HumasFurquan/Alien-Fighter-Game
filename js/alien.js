@@ -11,19 +11,25 @@ const gameContainer = document.getElementById("gameContainer");
    STATE
 ================================ */
 let alienX = alienPlane.offsetLeft;
-let alienSpeed = 1.8;   // VERY slow at start
+let alienSpeed = 1.8;
 let score = 0;
 let isRunning = true;
+
+/* ===============================
+   ATTACK CONTROL
+================================ */
+let lastFireTime = 0;
+const FIRE_COOLDOWN = 1200; // ms
 
 /* ===============================
    DIFFICULTY SETTINGS
 ================================ */
 const SPEED_INCREMENT = 0.35;
-const SPEED_CHECK_INTERVAL = 10000; // 10 seconds
-const SPEED_RATIO_LIMIT = 0.85;     // always slower than player
+const SPEED_CHECK_INTERVAL = 10000;
+const SPEED_RATIO_LIMIT = 0.85;
 
 /* ===============================
-   ALIEN MOVEMENT (CHASE PLAYER)
+   MOVEMENT + SMART ATTACK
 ================================ */
 export function moveAlien() {
     if (!isRunning) return;
@@ -31,36 +37,52 @@ export function moveAlien() {
     const alienWidth = alienPlane.offsetWidth;
     const containerWidth = movementContainer.clientWidth;
 
-    const targetX =
-        player.x + player.width / 2 - alienWidth / 2;
+    const playerCenterX = player.x + player.width / 2;
+    const alienCenterX = alienX + alienWidth / 2;
 
-    if (alienX < targetX) alienX += alienSpeed;
-    else if (alienX > targetX) alienX -= alienSpeed;
+    // Chase player horizontally
+    if (alienCenterX < playerCenterX) alienX += alienSpeed;
+    else if (alienCenterX > playerCenterX) alienX -= alienSpeed;
 
     alienX = Math.max(0, Math.min(alienX, containerWidth - alienWidth));
-    alienPlane.style.left = alienX + "px";
+    alienPlane.style.left = `${alienX}px`;
+
+    /* ===============================
+       FIRE ONLY IF PLAYER IS UNDER UFO
+    ================================ */
+    const alienLeft = alienX;
+    const alienRight = alienX + alienWidth;
+
+    const now = Date.now();
+
+    if (
+        playerCenterX >= alienLeft &&
+        playerCenterX <= alienRight &&
+        now - lastFireTime > FIRE_COOLDOWN
+    ) {
+        fireLaser();
+        lastFireTime = now;
+    }
 
     requestAnimationFrame(moveAlien);
 }
 
 /* ===============================
-   DIFFICULTY SCALING (SAFE)
+   DIFFICULTY SCALING
 ================================ */
 setInterval(() => {
     if (!isRunning) return;
 
-    const maxAllowedSpeed = player.speed * SPEED_RATIO_LIMIT;
-
-    if (alienSpeed + SPEED_INCREMENT < maxAllowedSpeed) {
+    const maxSpeed = player.speed * SPEED_RATIO_LIMIT;
+    if (alienSpeed + SPEED_INCREMENT < maxSpeed) {
         alienSpeed += SPEED_INCREMENT;
     } else {
-        alienSpeed = maxAllowedSpeed; // clamp safely
+        alienSpeed = maxSpeed;
     }
-
 }, SPEED_CHECK_INTERVAL);
 
 /* ===============================
-   ALIEN LASER
+   LASER
 ================================ */
 const laserSound = new Audio('./asset/Lazer Sound.mp3');
 
@@ -70,20 +92,18 @@ function fireLaser() {
     const laser = document.createElement("div");
     laser.className = "laserBeam";
 
+    // Use getBoundingClientRect() to get visual position
     const alienRect = alienPlane.getBoundingClientRect();
-    const containerRect = gameContainer.getBoundingClientRect();
 
-    laser.style.left =
-        alienRect.left - containerRect.left + alienRect.width / 2 + "px";
-    laser.style.top =
-        alienRect.bottom - containerRect.top + "px";
+    laser.style.left = alienRect.left + alienRect.width / 2 - 2 + "px";
+    laser.style.top = alienRect.bottom + "px";
 
-    gameContainer.appendChild(laser);
+    movementContainer.appendChild(laser);
 
     laserSound.currentTime = 0;
     laserSound.play();
 
-    let yPos = parseFloat(laser.style.top);
+    let yPos = alienRect.bottom;
 
     const interval = setInterval(() => {
         yPos += 8;
@@ -103,19 +123,13 @@ function fireLaser() {
             window.onPlayerHitByLaser?.();
         }
 
-        if (yPos > gameContainer.clientHeight) {
+        if (yPos > movementContainer.clientHeight) {
             clearInterval(interval);
             laser.remove();
         }
     }, 30);
 }
 
-/* ===============================
-   LASER TIMER
-================================ */
-const laserTimer = setInterval(() => {
-    if (isRunning) fireLaser();
-}, 1500);
 
 /* ===============================
    HIT + SCORE
@@ -134,5 +148,4 @@ export function getScore() {
 
 export function stopAlien() {
     isRunning = false;
-    clearInterval(laserTimer);
 }
