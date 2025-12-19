@@ -112,37 +112,6 @@ The game is deployed using GitHub Pages
 
 https://your-username.github.io/Alien-Fighter-Game/
 
-🧠 Future Improvements
-
-Mobile touch controls 📱
-
-Boss fight mode 👑
-
-Power-ups and shields ⚡
-
-Sound toggle 🔊
-
-Pause / Resume feature ⏸️
-
----
-
-## 🎯 Use Cases
-
-* Social media moderation
-* Toxic content filtering
-* Research on online hate speech
-* NLP model deployment demonstration
-
----
-
-## 🔒 Limitations
-
-* Model performance depends on dataset bias
-* English-language focused
-* Not a replacement for human moderation
-
-These limitations are common in supervised NLP systems and can be mitigated through dataset expansion, multilingual training, and continual learning with real-world feedback.
-
 ---
 
 ## 🧠 Future Improvements
