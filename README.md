@@ -89,6 +89,41 @@ Alien-Fighter-Game/
 └── README.md
 ```
 
+🚀 How to Run Locally
+
+Clone the repository
+
+git clone https://github.com/your-username/Alien-Fighter-Game.git
+
+
+Open the folder
+
+cd Alien-Fighter-Game
+
+
+Run using Live Server (recommended)
+
+VS Code → Right click index.html → Open with Live Server
+
+🌍 Play Online
+
+The game is deployed using GitHub Pages
+👉 (Add your deployed link here)
+
+https://your-username.github.io/Alien-Fighter-Game/
+
+🧠 Future Improvements
+
+Mobile touch controls 📱
+
+Boss fight mode 👑
+
+Power-ups and shields ⚡
+
+Sound toggle 🔊
+
+Pause / Resume feature ⏸️
+
 ---
 
 ## 🎯 Use Cases
@@ -129,12 +164,12 @@ GitHub: [https://github.com/HumasFurquan](https://github.com/HumasFurquan)
 
 ---
 
-## ⭐ Acknowledgements
+## ⭐ Support
 
-* Hugging Face 🤗
-* Streamlit
-* Open-source NLP community
+If you like this project:
+
+* ⭐ Star the repository
+* 🍴 Fork it
+* 🧠 Suggest improvements
 
 ---
-
-> If you find this project useful, consider giving it a ⭐ on GitHub.
