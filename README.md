@@ -159,7 +159,6 @@ These limitations are common in supervised NLP systems and can be mitigated thro
 ## 👨‍💻 Author
 
 **Humas Furquan**
-ML & Frontend Developer
 GitHub: [https://github.com/HumasFurquan](https://github.com/HumasFurquan)
 
 ---
