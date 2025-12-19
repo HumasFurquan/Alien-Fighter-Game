@@ -16,6 +16,26 @@ let score = 0;
 let isRunning = true;
 
 /* ===============================
+   HIT & UFO EVOLUTION
+================================ */
+const ufoImages = [
+  './asset/ufo1.png',
+  './asset/ufo2.png',
+  './asset/ufo3.png',
+  './asset/ufo4.png',
+  './asset/ufo5.png',
+  './asset/ufo6.png',
+  './asset/ufo7.png',
+  './asset/ufo8.png',
+  './asset/ufo9.png',
+];
+let currentUfoIndex = 0;   // Current UFO image
+let hitCount = 0;           // Hits on current UFO
+
+// Set initial UFO image
+alienPlane.src = ufoImages[currentUfoIndex];
+
+/* ===============================
    ATTACK CONTROL
 ================================ */
 let lastFireTime = 0;
@@ -92,7 +112,6 @@ function fireLaser() {
     const laser = document.createElement("div");
     laser.className = "laserBeam";
 
-    // Use getBoundingClientRect() to get visual position
     const alienRect = alienPlane.getBoundingClientRect();
 
     laser.style.left = alienRect.left + alienRect.width / 2 - 2 + "px";
@@ -130,15 +149,28 @@ function fireLaser() {
     }, 30);
 }
 
-
 /* ===============================
-   HIT + SCORE
+   HIT + UFO IMAGE CHANGE
 ================================ */
 const boomSound = new Audio('./asset/Boom Sound.mp3');
 
 export function handleAlienHit() {
     boomSound.currentTime = 0;
     boomSound.play();
+    hitCount++;
+
+    // Every 3 hits -> change UFO image
+    if (hitCount % 3 === 0) {
+        currentUfoIndex++;
+
+        if (currentUfoIndex >= ufoImages.length) {
+            // Last UFO image destroyed
+            vanishUfo();
+        } else {
+            alienPlane.src = ufoImages[currentUfoIndex];
+        }
+    }
+
     score++;
 }
 
@@ -148,4 +180,19 @@ export function getScore() {
 
 export function stopAlien() {
     isRunning = false;
+}
+
+/* ===============================
+   UFO VANISH
+================================ */
+function vanishUfo() {
+    alienPlane.classList.add("vanish-alien");
+
+    setTimeout(() => {
+        alienPlane.classList.remove("vanish-alien");
+        alienPlane.src = ufoImages[0]; // reset to first UFO
+        currentUfoIndex = 0;
+        hitCount = 0;
+        alienPlane.style.left = "0px"; // optional: reset position
+    }, 500); // match vanish animation
 }

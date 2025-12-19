@@ -1,10 +1,11 @@
-export let player = {
+export const player = {
     x: window.innerWidth / 2,
     y: window.innerHeight - 150,
     width: 100,
     height: 100,
     speed: 10,
-    element: document.getElementById('fighterPlane')
+    element: document.getElementById('fighterPlane'),
+    canMove: true  // New flag to control movement
 };
 
 // Function to update plane position
@@ -15,29 +16,32 @@ export function updatePlayerPosition() {
 
 // Keyboard input
 export function handlePlayerControls() {
-  const container = document.getElementById("center");
+    const container = document.getElementById("center");
 
-  document.addEventListener("keydown", (e) => {
-    const maxX = container.clientWidth - player.width;
-    const maxY = container.clientHeight - player.height;
+    document.addEventListener("keydown", (e) => {
+        if (!player.canMove) return; // Freeze movement if game over
 
-    if (e.key === "ArrowLeft") {
-      player.x = Math.max(0, player.x - player.speed);
-    }
-    if (e.key === "ArrowRight") {
-      player.x = Math.min(maxX, player.x + player.speed);
-    }
-    if (e.key === "ArrowUp") {
-      player.y = Math.max(0, player.y - player.speed);
-    }
-    if (e.key === "ArrowDown") {
-      player.y = Math.min(maxY, player.y + player.speed);
-    }
+        const maxX = container.clientWidth - player.width;
+        const maxY = container.clientHeight - player.height;
 
-    updatePlayerPosition();
-  });
+        if (e.key === "ArrowLeft") {
+            player.x = Math.max(0, player.x - player.speed);
+        }
+        if (e.key === "ArrowRight") {
+            player.x = Math.min(maxX, player.x + player.speed);
+        }
+        if (e.key === "ArrowUp") {
+            player.y = Math.max(0, player.y - player.speed);
+        }
+        if (e.key === "ArrowDown") {
+            player.y = Math.min(maxY, player.y + player.speed);
+        }
+
+        updatePlayerPosition();
+    });
 }
 
+// Optional helper to disable controls completely
 export function disablePlayerControls() {
-    document.onkeydown = null;
+    player.canMove = false;
 }

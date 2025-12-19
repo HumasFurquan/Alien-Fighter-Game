@@ -51,6 +51,18 @@ html, body {
           drop-shadow(0 0 30px #0088ff);
 }
 
+#blackoutOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 0; /* initially hidden */
+  z-index: 9998; /* just below game over screen */
+  transition: opacity 0.3s ease-in-out;
+}
+
 /* Player fighter plane */
 #fighterPlane{
     position: absolute;

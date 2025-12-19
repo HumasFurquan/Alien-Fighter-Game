@@ -1,4 +1,4 @@
-import { handlePlayerControls } from './player.js';
+import { handlePlayerControls, player } from './player.js';
 import { fireMissile } from './missiles.js';
 import { moveAlien, getScore, stopAlien } from './alien.js';
 import { startBackgroundCycle } from "./canvas.js";
@@ -24,9 +24,12 @@ function startGameTimer() {
 
 // Call this when game ends
 function gameOver() {
+  // Stop everything
   stopAlien();
   clearInterval(survivalInterval);
+  player.canMove = false; // freeze player movement
 
+  // Play sound
   gameOverSound.play();
 
   const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
@@ -37,6 +40,11 @@ function gameOver() {
     localStorage.setItem("alienFighterHighScore", highScore);
   }
 
+  // Show blackout overlay
+  const blackout = document.getElementById("blackoutOverlay");
+  if (blackout) blackout.style.opacity = "1";
+
+  // Show game over screen
   const screen = document.getElementById("gameOverScreen");
   const scoreEl = document.getElementById("finalScore");
 
@@ -49,7 +57,7 @@ function gameOver() {
 
 // Reload button functionality
 document.getElementById("reloadButton").addEventListener("click", () => {
-  location.reload(); // simple restart
+  location.reload(); // restart game
 });
 
 // Attach player movement
@@ -57,7 +65,7 @@ handlePlayerControls();
 
 // Attach missile fire
 document.addEventListener("keydown", (e) => { 
-  if(e.code === "Space") fireMissile(); 
+  if(e.code === "Space" && player.canMove) fireMissile(); 
 });
 
 // Start alien and timer
