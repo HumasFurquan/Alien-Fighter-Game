@@ -20,11 +20,12 @@ resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
 /* ---------- Starfield ---------- */
-const stars = Array.from({ length: 150 }, () => ({
+const NUM_STARS = 300; // more stars for speed effect
+const stars = Array.from({ length: NUM_STARS }, () => ({
   x: Math.random() * window.innerWidth,
   y: Math.random() * window.innerHeight,
   r: Math.random() * 2,
-  speed: Math.random() * 0.5 + 0.2
+  speed: Math.random() * 8 + 2 // fast stars
 }));
 
 function drawStars(ctx) {
@@ -34,7 +35,12 @@ function drawStars(ctx) {
   ctx.fillStyle = "white";
   stars.forEach(s => {
     s.y += s.speed;
-    if (s.y > ctx.canvas.height) s.y = 0;
+    if (s.y > ctx.canvas.height) {
+      s.y = 0;
+      s.x = Math.random() * ctx.canvas.width;
+      s.r = Math.random() * 2;
+      s.speed = Math.random() * 8 + 2;
+    }
     ctx.beginPath();
     ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
     ctx.fill();
@@ -75,5 +81,5 @@ export function startBackgroundCycle() {
   setInterval(() => {
     currentIndex = (currentIndex + 1) % canvases.length;
     showCanvas(currentIndex);
-  }, 7000); // change every 7 seconds
+  }, 7000);
 }
