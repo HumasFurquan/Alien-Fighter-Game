@@ -93,14 +93,25 @@ Alien-Fighter-Game/
 ## 📁 Project Structure
 
 ```
-Hate-Speech-Detection-2.0/
+Alien-Fighter-Game/
 │
-├── app.py                 # Streamlit application
-├── test_model.py          # Model testing script
-├── requirements.txt       # Dependencies
-├── all_texts.pkl          # Autocomplete / suggestion data
-├── hf_cache/              # Hugging Face cache (runtime)
-└── README.md              # Project documentation
+├── asset/
+│   ├── Fighter Plane.png
+│   ├── Alien Ship.png
+│   ├── Missile.png
+│   ├── ufo1.png ... ufo9.png
+│   └── sound files
+│
+├── js/
+│   ├── game.js
+│   ├── player.js
+│   ├── alien.js
+│   ├── missiles.js
+│   └── canvas.js
+│
+├── index.html
+├── style.css
+└── README.md
 ```
 
 ---
