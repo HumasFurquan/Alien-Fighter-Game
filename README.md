@@ -145,14 +145,13 @@ These limitations are common in supervised NLP systems and can be mitigated thro
 
 ---
 
-## 📈 Future Improvements
+## 🧠 Future Improvements
 
-* Multi-class hate category breakdown
-* SHAP / attention-based explainability UI
-* Multi-language support
-* REST API (FastAPI backend)
-* User feedback loop for model retraining
-* Database-backed history instead of session state
+* Mobile touch controls 📱
+* Boss fight mode 👑
+* Power-ups and shields ⚡
+* Sound toggle 🔊
+* Pause / Resume feature ⏸️
 
 ---
 
