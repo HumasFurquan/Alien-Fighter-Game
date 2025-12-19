@@ -1,31 +1,68 @@
 import { handlePlayerControls } from './player.js';
 import { fireMissile } from './missiles.js';
-import { moveAlien, getScore } from './alien.js';
+import { moveAlien, getScore, stopAlien } from './alien.js';
 import { startBackgroundCycle } from "./canvas.js";
 
 startBackgroundCycle();
 
-
 const gameOverSound = new Audio('./asset/Game Over Sound.mp3');
 
-// animateSpace();
-// animateMars();
-// animateNeptune();
-moveAlien();
+let startTime;
+let survivalInterval;
+
+// Load high score from localStorage (if any)
+let highScore = localStorage.getItem("alienFighterHighScore") || 0;
+
+// Start the timer when game starts
+function startGameTimer() {
+  startTime = Date.now();
+
+  survivalInterval = setInterval(() => {
+    // Optional: live timer update
+  }, 1000);
+}
+
+// Call this when game ends
+function gameOver() {
+  stopAlien();
+  clearInterval(survivalInterval);
+
+  gameOverSound.play();
+
+  const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+
+  // Update high score if needed
+  if (elapsedSeconds > highScore) {
+    highScore = elapsedSeconds;
+    localStorage.setItem("alienFighterHighScore", highScore);
+  }
+
+  const screen = document.getElementById("gameOverScreen");
+  const scoreEl = document.getElementById("finalScore");
+
+  scoreEl.innerHTML = `
+    Score: ${elapsedSeconds} <br>
+    Highest Score: ${highScore}
+  `;
+  screen.style.display = "block";
+}
+
+// Reload button functionality
+document.getElementById("reloadButton").addEventListener("click", () => {
+  location.reload(); // simple restart
+});
 
 // Attach player movement
 handlePlayerControls();
 
 // Attach missile fire
-document.addEventListener("keydown", (e)=>{ if(e.code==="Space") fireMissile(); });
+document.addEventListener("keydown", (e) => { 
+  if(e.code === "Space") fireMissile(); 
+});
+
+// Start alien and timer
+moveAlien();
+startGameTimer();
 
 // Make gameOver globally callable
-window.onPlayerHitByLaser = function(){
-    gameOverSound.play();
-
-    const screen = document.getElementById("gameOverScreen");
-    screen.style.display = "block";
-
-    const scoreEl = document.getElementById("Your-Score");
-    scoreEl.innerHTML = `Your Score Is ${getScore()}`;
-}
+window.onPlayerHitByLaser = gameOver;

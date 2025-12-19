@@ -29,9 +29,18 @@
         <img id="alienPlane" src="./asset/Alien Ship.png" />
     </div>
     <p id="fighterPlane"><img src="./asset/Fighter Plane.png" alt="Fighter Plane"></p>
-    <div id="gameOverScreen" class="pause-game">GAME OVER</div>
     <div id="Your-Score">Your Score is </div>
   </div>
+
+  <!-- Game Over Screen -->
+<div id="gameOverScreen" class="pause-game" style="display:none;">
+  <h1 id="gameOverText">GAME OVER</h1>
+  <p id="finalScore">Score: 0</p>
+  <div id="playAgainContainer">
+    <span id="playAgainLabel">Play Again</span>
+    <button id="reloadButton">🔄</button>
+  </div>
+</div>
 
   <!-- Load modules -->
   <script type="module" src="js/game.js"></script>

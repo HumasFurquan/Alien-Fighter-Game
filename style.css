@@ -223,12 +223,54 @@ img{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 64px;
-  font-weight: bold;
-  color: red;
+  background: rgba(0,0,0,0.85);
+  padding: 30px 50px;
+  text-align: center;
+  color: white;
+  font-family: Arial, sans-serif;
   display: none;
   z-index: 9999;
-  animation: gameOverPop 1s ease-in-out infinite alternate;
+  border: 3px solid red;
+  border-radius: 20px;
+}
+
+#gameOverText {
+  font-size: 60px;
+  margin-bottom: 20px;
+  color: red;
+}
+
+#finalScore {
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: yellow;
+}
+
+#playAgainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#playAgainLabel {
+  font-size: 24px;
+  color: white;
+}
+
+#reloadButton {
+  font-size: 24px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: green;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: transform 0.2s;
+}
+
+#reloadButton:hover {
+  transform: scale(1.1);
 }
 
 #Your-Score {
