@@ -1,51 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alien Fighter Game</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <div id="center">
 
+    <!-- Background canvases -->
     <canvas id="spaceCanvas"></canvas>
     <canvas id="marsCanvas"></canvas>
     <canvas id="neptuneCanvas"></canvas>
 
+    <!-- Single missile (used during firing) -->
     <div id="missile" style="display: none;">
-      <img src="/asset/Missile.png" alt="missile">
+      <img src="./asset/Missile.png" alt="missile" />
       <div class="flame"></div>
     </div>
 
-    <!-- <p id="alienShip"><img src="./asset/Alien Ship.png" alt="Alien Ship"></p> -->
-    <p id="harshRight"><img src="./asset/harshPicRightView.png" alt="Harsh Right View"></p>
-    <p id="harshLeft"><img src="./asset/harshPicLeftView.png" alt="Harsh Left View"></p>
+    <!-- Character images -->
+    <p id="harshRight">
+      <img src="./asset/harshPicRightView.png" alt="Harsh Right View" />
+    </p>
 
+    <p id="harshLeft">
+      <img src="./asset/harshPicLeftView.png" alt="Harsh Left View" />
+    </p>
+
+    <!-- Game container -->
     <div id="gameContainer">
-        <div id="topLeftPositionedFirst"><img src="/asset/Missile.png" alt="Missile"></div>
-        <div id="topLeftPositionedSecond"><img src="/asset/Missile.png" alt="Missile"></div>
-        <div id="topLeftPositionedThird"><img src="/asset/Missile.png" alt="Missile"></div>
-        <img id="alienPlane" src="./asset/Alien Ship.png" />
+
+      <!-- Top-left missile indicators -->
+      <div id="topLeftPositionedFirst">
+        <img src="./asset/Missile.png" alt="Missile" />
+      </div>
+
+      <div id="topLeftPositionedSecond">
+        <img src="./asset/Missile.png" alt="Missile" />
+      </div>
+
+      <div id="topLeftPositionedThird">
+        <img src="./asset/Missile.png" alt="Missile" />
+      </div>
+
+      <!-- Alien UFO -->
+      <img id="alienPlane" src="./asset/Alien Ship.png" />
     </div>
-    <p id="fighterPlane"><img src="./asset/Fighter Plane.png" alt="Fighter Plane"></p>
-    <div id="Your-Score">Your Score is </div>
+
+    <!-- Player fighter -->
+    <p id="fighterPlane">
+      <img src="./asset/Fighter Plane.png" alt="Fighter Plane" />
+    </p>
+
+    <!-- Score -->
+    <div id="Your-Score">Your Score is</div>
+
   </div>
 
   <!-- Game Over Screen -->
-<div id="gameOverScreen" class="pause-game" style="display:none;">
-  <h1 id="gameOverText">GAME OVER</h1>
-  <p id="finalScore">Score: 0</p>
-  <div id="playAgainContainer">
-    <span id="playAgainLabel">Play Again</span>
-    <button id="reloadButton">🔄</button>
+  <div id="gameOverScreen" class="pause-game" style="display: none;">
+    <h1 id="gameOverText">GAME OVER</h1>
+    <p id="finalScore">Score: 0</p>
+
+    <div id="playAgainContainer">
+      <span id="playAgainLabel">Play Again</span>
+      <button id="reloadButton">🔄</button>
+    </div>
   </div>
-</div>
 
-<!-- Blackout overlay for game over -->
-<div id="blackoutOverlay"></div>
+  <!-- Blackout overlay -->
+  <div id="blackoutOverlay"></div>
 
-  <!-- Load modules -->
+  <!-- Main Game Script -->
   <script type="module" src="js/game.js"></script>
+
 </body>
 </html>
