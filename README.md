@@ -1,31 +1,73 @@
 # 🚀 Alien Fighter Game
 
-A fast-paced **2D space shooter game** built using **HTML, CSS, and JavaScript (ES Modules)** where players control a fighter plane and survive against an evolving alien UFO.
+A fast-paced **2D space shooter game** built using **HTML, CSS, and Vanilla JavaScript**.  
+Survive as long as possible while dodging alien attacks and shooting down UFOs in a dynamic animated space environment.
 
-**🎮 Play, survive, score, and beat your high score!**
-
-🔗 **Live Demo**: [https://hatexspeechxdetectionx2x0.streamlit.app/](https://hatexspeechxdetectionx2x0.streamlit.app/)
-
----
-
-## 🎥 Project Demo
-
-![Project Demo](assets/demo.gif)
+🎮 **Play. Survive. Beat Your High Score.**
 
 ---
 
-## 📸 Screenshots
+## 🎮 Gameplay Features
 
-### 🏠 Home Page
-![Home Page](assets/home.jpg)
+- 🛸 **Smart Alien UFO**
+  - Moves dynamically across the screen
+  - Attacks only when aligned with the player
+  - Changes appearance after taking damage
 
-### 💡 Text Suggestions
-![Suggestions](assets/suggestions.jpg)
+- 🚀 **Player Fighter Plane**
+  - Smooth keyboard controls
+  - Center-aligned shooting
+  - Frozen instantly on game over
 
-### 📊 Prediction Results
-![Prediction Result 1](assets/prediction_1.jpg)
-![Prediction Result 2](assets/prediction_2.jpg)
-![Prediction Result 2](assets/prediction_3.jpg)
+- 💥 **Missile System**
+  - Limited missiles displayed on screen
+  - Real-time missile usage feedback
+  - Accurate collision detection
+
+- 🌌 **Animated Space Background**
+  - Multi-layer canvas animation
+  - Star-field speed effect
+  - Planet transition visuals
+
+- 🏆 **Scoring System**
+  - Score based on survival time
+  - Highest score stored using `localStorage`
+  - Displayed on game over screen
+
+- ☠️ **Game Over Effects**
+  - Full blackout screen
+  - Sound effect on player hit
+  - Clean game over UI
+  - Play Again option
+
+---
+
+## 🕹️ Controls
+
+### Desktop Controls
+| Action | Key |
+|------|----|
+| Move Left | ⬅️ Arrow Left |
+| Move Right | ➡️ Arrow Right |
+| Move Up | ⬆️ Arrow Up |
+| Move Down | ⬇️ Arrow Down |
+| Shoot | Spacebar |
+
+---
+
+## 🛠️ Tech Stack
+
+- **HTML5** (Canvas, Game Structure)
+- **CSS3** (Animations, Effects, UI)
+- **JavaScript (ES6 Modules)**
+- **Canvas API**
+- **LocalStorage** (High Score)
+
+---
+
+## 📂 Project Structure
+
+asldfjdslfjslkfjdkssdlfjksldfj
 
 ---
 
