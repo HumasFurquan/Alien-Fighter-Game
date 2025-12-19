@@ -89,6 +89,24 @@ Alien-Fighter-Game/
 └── README.md
 ```
 
+## 🚀 How to Run Locally
+
+```bash
+# Clone repository
+git clone https://github.com/your-username/Alien-Fighter-Game.git
+cd Alien-Fighter-Game
+
+# Create virtual environment (optional)
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the app
+streamlit run app.py
+```
+
 🚀 How to Run Locally
 
 Clone the repository
