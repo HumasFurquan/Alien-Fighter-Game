@@ -67,7 +67,26 @@ Survive as long as possible while dodging alien attacks and shooting down UFOs i
 
 ## 📂 Project Structure
 
-asldfjdslfjslkfjdkssdlfjksldfj
+Alien-Fighter-Game/
+│
+├── asset/
+│   ├── Fighter Plane.png
+│   ├── Alien Ship.png
+│   ├── Missile.png
+│   ├── ufo1.png ... ufo9.png
+│   └── sound files
+│
+├── js/
+│   ├── game.js
+│   ├── player.js
+│   ├── alien.js
+│   ├── missiles.js
+│   └── canvas.js
+│
+├── index.html
+├── style.css
+└── README.md
+
 
 ---
 
