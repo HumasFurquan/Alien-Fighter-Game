@@ -102,34 +102,14 @@ cd Alien-Fighter-Game
 # Run using Live Server (recommended)
 VS Code → Right click index.html → Open with Live Server
 
-# Run the app
-streamlit run app.py
 ```
 
 ```
-
-🚀 How to Run Locally
-
-Clone the repository
-
-git clone https://github.com/your-username/Alien-Fighter-Game.git
-
-
-Open the folder
-
-cd Alien-Fighter-Game
-
-
-Run using Live Server (recommended)
-
-VS Code → Right click index.html → Open with Live Server
 
 🌍 Play Online
 
 The game is deployed using GitHub Pages
-👉 (Add your deployed link here)
-
-https://your-username.github.io/Alien-Fighter-Game/
+👉 https://humasfurquan.github.io/Alien-Fighter-Game/
 
 ```
 
