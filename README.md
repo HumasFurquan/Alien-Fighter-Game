@@ -110,11 +110,8 @@ VS Code → Right click index.html → Open with Live Server
 
 ## 🌍 Play Online
 
-
 The game is deployed using GitHub Pages
 👉 [https://humasfurquan.github.io/Alien-Fighter-Game/](https://humasfurquan.github.io/Alien-Fighter-Game/)
-
-```
 
 ---
 
