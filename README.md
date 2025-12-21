@@ -1,4 +1,10 @@
 # 🚀 Alien Fighter Game
+```md
+![HTML](https://img.shields.io/badge/HTML5-orange?logo=html5)
+![CSS](https://img.shields.io/badge/CSS3-blue?logo=css3)
+![JavaScript](https://img.shields.io/badge/JavaScript-yellow?logo=javascript)
+![GitHub Pages](https://img.shields.io/badge/Deployed-GitHub%20Pages-success)
+```
 
 A fast-paced **2D space shooter game** built using **HTML, CSS, and Vanilla JavaScript**.  
 Survive as long as possible while dodging alien attacks and shooting down UFOs in a dynamic animated space environment.
@@ -136,6 +142,16 @@ The game is deployed using GitHub Pages
 * Power-ups and shields ⚡
 * Sound toggle 🔊
 * Pause / Resume feature ⏸️
+
+---
+
+## 📚 What I Learned
+
+- Canvas-based game rendering
+- Game loop and state management
+- Collision detection logic
+- Modular JavaScript architecture
+- GitHub Pages deployment
 
 ---
 
