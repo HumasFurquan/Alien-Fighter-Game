@@ -96,12 +96,11 @@ Alien-Fighter-Game/
 git clone https://github.com/your-username/Alien-Fighter-Game.git
 cd Alien-Fighter-Game
 
-# Create virtual environment (optional)
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+# Open the folder
+cd Alien-Fighter-Game
 
-# Install dependencies
-pip install -r requirements.txt
+# Run using Live Server (recommended)
+VS Code → Right click index.html → Open with Live Server
 
 # Run the app
 streamlit run app.py
@@ -131,6 +130,8 @@ The game is deployed using GitHub Pages
 👉 (Add your deployed link here)
 
 https://your-username.github.io/Alien-Fighter-Game/
+
+```
 
 ---
 
