@@ -101,10 +101,10 @@ cd Alien-Fighter-Game
 # Open the folder
 cd Alien-Fighter-Game
 
+```
+
 # Run using Live Server (recommended)
 VS Code → Right click index.html → Open with Live Server
-
-```
 
 ---
 
