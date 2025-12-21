@@ -1,10 +1,7 @@
 # 🚀 Alien Fighter Game
 [![HTML](https://img.shields.io/badge/HTML5-orange?logo=html5)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-
 [![CSS](https://img.shields.io/badge/CSS3-blue?logo=css3)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-
 [![JavaScript](https://img.shields.io/badge/JavaScript-yellow?logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-
 [![GitHub Pages](https://img.shields.io/badge/Deployed-GitHub%20Pages-success)](https://pages.github.com/)
 
 A fast-paced **2D space shooter game** built using **HTML, CSS, and Vanilla JavaScript**.  
