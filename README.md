@@ -125,9 +125,6 @@ Alien-Fighter-Game/
 git clone https://github.com/your-username/Alien-Fighter-Game.git
 cd Alien-Fighter-Game
 
-# Open the folder
-cd Alien-Fighter-Game
-
 ```
 
 # Run using Live Server (recommended)
