@@ -89,6 +89,8 @@ Alien-Fighter-Game/
 └── README.md
 ```
 
+---
+
 ## 🚀 How to Run Locally
 
 ```bash
@@ -104,9 +106,7 @@ VS Code → Right click index.html → Open with Live Server
 
 ```
 
-```
-
-```
+---
 
 ## 🌍 Play Online
 
