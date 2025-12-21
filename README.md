@@ -83,6 +83,8 @@ Survive as long as possible while dodging alien attacks and shooting down UFOs i
 - **Canvas API**
 - **LocalStorage** (High Score)
 
+Built with ❤️ using pure JavaScript and HTML Canvas.
+
 ---
 
 ## 📁 Project Structure
@@ -159,6 +161,12 @@ The game is deployed using GitHub Pages
 
 **Humas Furquan**
 GitHub: [https://github.com/HumasFurquan](https://github.com/HumasFurquan)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
 
 ---
 
