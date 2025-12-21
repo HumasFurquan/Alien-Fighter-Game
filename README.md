@@ -7,6 +7,25 @@ Survive as long as possible while dodging alien attacks and shooting down UFOs i
 
 ---
 
+## 🎥 Gameplay Demo
+
+![Alien Fighter Gameplay](./asset/demo.gif)
+
+---
+
+## 📸 Screenshots
+
+### 🛸 Game Arena
+![Game Arena](./asset/Game%20Arena.jpg)
+
+### 🚀 Plane Shooting
+![Plane Shooting](./asset/Plane%20Shooting.jpg)
+
+### ☠️ Game Over
+![Game Over](./asset/Game%20Over.jpg)
+
+---
+
 ## 🎮 Gameplay Features
 
 - 🛸 **Smart Alien UFO**
