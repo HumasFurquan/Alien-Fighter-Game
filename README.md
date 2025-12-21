@@ -9,6 +9,8 @@ Survive as long as possible while dodging alien attacks and shooting down UFOs i
 
 🎮 **Play. Survive. Beat Your High Score.**
 
+> ⌨️ **Tip:** Use Arrow Keys to move and Spacebar to shoot
+
 ---
 
 ## 🎥 Gameplay Demo
