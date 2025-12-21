@@ -107,6 +107,8 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+```
+
 🚀 How to Run Locally
 
 Clone the repository
