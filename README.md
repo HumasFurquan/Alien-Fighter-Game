@@ -7,6 +7,11 @@
 A fast-paced **2D space shooter game** built using **HTML, CSS, and Vanilla JavaScript**.  
 Survive as long as possible while dodging alien attacks and shooting down UFOs in a dynamic animated space environment.
 
+## 🌍 Play Online
+
+The game is deployed using GitHub Pages
+👉 [https://humasfurquan.github.io/Alien-Fighter-Game/](https://humasfurquan.github.io/Alien-Fighter-Game/)
+
 🎮 **Play. Survive. Beat Your High Score.**
 
 > ⌨️ **Tip:** Use Arrow Keys to move and Spacebar to shoot
