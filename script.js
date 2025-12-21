@@ -6,40 +6,67 @@ let isGameOver = false;
 
 let myPlane = document.getElementById("fighterPlane");
 
-let upDown = myPlane.offsetTop;
+function getBounds() {
+  return {
+    gameWidth: center.clientWidth,
+    gameHeight: center.clientHeight,
+    planeWidth: myPlane.offsetWidth,
+    planeHeight: myPlane.offsetHeight
+  };
+}
+
 let leftRight = myPlane.offsetLeft;
+let upDown = center.clientHeight - myPlane.offsetHeight - 20;
 
-function handlePlayerControls(movement) {
-  let step = 10;
+function handlePlayerControls(e) {
+  const step = 10;
 
-  switch (movement.key) {
-    case "ArrowUp":
-      upDown -= step;
-      break;
-    case "ArrowDown":
-      upDown += step;
-      break;
+  const {
+    gameWidth,
+    gameHeight,
+    planeWidth,
+    planeHeight
+  } = getBounds();
+
+  switch (e.key) {
     case "ArrowLeft":
       leftRight -= step;
       break;
     case "ArrowRight":
       leftRight += step;
       break;
+    case "ArrowUp":
+      upDown -= step;
+      break;
+    case "ArrowDown":
+      upDown += step;
+      break;
   }
 
-  if (leftRight < 82) {
-    leftRight = 82;
-  } else if (leftRight > 1518) {
-    leftRight = 1515;
-  } else if (upDown > 665) {
-    upDown = 665;
-  } else if (upDown < 355) {
-    upDown = 355;
-  }
+  // Clamp horizontally
+  leftRight = Math.max(0, Math.min(leftRight, gameWidth - planeWidth));
 
-  myPlane.style.top = upDown + "px";
+  // Clamp vertically
+  upDown = Math.max(0, Math.min(upDown, gameHeight - planeHeight));
+
   myPlane.style.left = leftRight + "px";
+  myPlane.style.top = upDown + "px";
 }
+
+window.addEventListener("resize", () => {
+  const {
+    gameWidth,
+    gameHeight,
+    planeWidth,
+    planeHeight
+  } = getBounds();
+
+  leftRight = Math.max(0, Math.min(leftRight, gameWidth - planeWidth));
+  upDown = Math.max(0, Math.min(upDown, gameHeight - planeHeight));
+
+  myPlane.style.left = leftRight + "px";
+  myPlane.style.top = upDown + "px";
+});
 
 document.addEventListener("keydown", handlePlayerControls);
 
@@ -47,8 +74,44 @@ document.addEventListener("keydown", handlePlayerControls);
 
 let alienPlane = document.getElementById("alienShip");
 
-let upDownAlienShip = alienPlane.offsetTop;
-let leftRightAlienShip = alienPlane.offsetLeft;
+// ---- NEW MOVEMENT STATE ----
+let alienX = alienPlane.offsetLeft;
+let alienY = alienPlane.offsetTop;
+
+let alienSpeedX = 3;   // will increase with time
+let targetX = alienX;  // dynamic target
+
+function moveAlien() {
+  const container = document.getElementById("center");
+  const containerWidth = container.clientWidth;
+  const alienWidth = alienPlane.offsetWidth;
+
+  // Move towards target
+  if (alienX < targetX) alienX += alienSpeedX;
+  else if (alienX > targetX) alienX -= alienSpeedX;
+
+  // Clamp inside screen
+  if (alienX < 0) alienX = 0;
+  if (alienX + alienWidth > containerWidth) {
+    alienX = containerWidth - alienWidth;
+  }
+
+  // When aligned → fire laser & choose new target
+  if (Math.abs(alienX - targetX) < 4) {
+    const now = Date.now();
+    if (now - lastLaserTime > LASER_COOLDOWN) {
+      fireLaser(alienX + alienWidth / 2);
+      lastLaserTime = now;
+      targetX = Math.random() * (containerWidth - alienWidth);
+    }
+  }
+
+  alienPlane.style.left = alienX + "px";
+
+  if (!isGameOver) {
+    requestAnimationFrame(moveAlien);
+  }
+}
 
 myPlane.style.top = upDown + "px";
 myPlane.style.left = leftRight + "px";
@@ -91,44 +154,17 @@ let clockInterval = setInterval(() => {
 
 
 function callAfterEveryFiveSecond() {
-    console.log("callAfterEveryFiveSecond");
     flickerDuration -= 0.04; // increase flicker speed (lower duration)
     if (flickerDuration < 0.10) flickerDuration = 0.10; // minimum speed limit
     alienPlane.style.animationDuration = flickerDuration + "s";
-    console.log("New flicker speed:", flickerDuration + "s");
 
-    // Avoid negative or too low interval
-    let newInterval = Math.max(30, baseInterval - clock * 10);
-
-    if (movementInterval) {
-        clearInterval(movementInterval);
-    }
-
-    movementInterval = setInterval(movementOfAlienShip, newInterval);
-    console.log("New interval:", newInterval);
+    // Increase difficulty smoothly
+    alienSpeedX = Math.min(8, alienSpeedX + 0.4);
 }
 
 setInterval(callAfterEveryFiveSecond, 5000);
 
-setInterval(callAfterEveryFiveSecond, 5000);
-
-function movementOfAlienShip() {
-
-    if (leftRightAlienShip < leftRight) {
-        leftRightAlienShip += 10;
-    } else if (leftRightAlienShip > leftRight) {
-        leftRightAlienShip -= 10;
-    }
-    else if(leftRightAlienShip == leftRight){
-
-      // auto lazer logic
-
-      fireLaser(leftRightAlienShip - 15);
-
-    }
-
-    alienPlane.style.left = leftRightAlienShip + "px";
-}
+moveAlien();
 
 // Missile Logic
 
@@ -166,6 +202,8 @@ let missileLaunchSound = new Audio('./asset/Missile Launch Sound.mp3');
 
 
 function handleMissileFire(e) {
+  if (isGameOver) return;
+
   if (e.code === "Space" && nextMissile != 0) {
     fireMissile();
     missileLaunchSound.play();
@@ -188,6 +226,13 @@ document.addEventListener("keydown", handleMissileFire);
 
 
 function fireMissile() {
+
+  if (isGameOver) {
+    clearInterval(interval);
+    newMissile.remove();
+    return;
+  }
+
   const originalMissile = document.getElementById("missile");
   const newMissile = originalMissile.cloneNode(true);
   newMissile.removeAttribute("id");
@@ -271,6 +316,7 @@ function explodeAlien() {
 
     // Create new alienPlane
     const newAlien = document.createElement("img");
+
     newAlien.src = `./asset/Alien Ship ${alienPlaneHitCount}.png`; // loads Alien Ship 2.png, Alien Ship 3.png etc.
     newAlien.id = "alienPlane";
     newAlien.style.position = "absolute";
@@ -576,7 +622,7 @@ function onPlayerHitByLaser() {
   gameOverSound.play();
 
   // Pause all intervals and animations
-  document.body.classList.add("pause-game");
+  // document.body.classList.add("pause-game");
 
   // Stop any movement logic (clear intervals)
   // You need to clear any active intervals manually if you have setInterval references
