@@ -98,21 +98,44 @@ Built with ❤️ using pure JavaScript and HTML Canvas.
 Alien-Fighter-Game/
 │
 ├── asset/
+│   ├── Boom Sound.mp3
+│   ├── Game Over Sound.mp3
+│   ├── Lazer Sound.mp3
+│   ├── Missile Launch Sound.mp3
+│   │
 │   ├── Fighter Plane.png
-│   ├── Alien Ship.png
 │   ├── Missile.png
-│   ├── ufo1.png ... ufo9.png
-│   └── sound files
+│   ├── Game Arena.jpg
+│   ├── Game Over.jpg
+│   ├── Plane Shooting.jpg
+│   ├── Top View Of Battle Arena.jpg
+│   │
+│   ├── harshPicLeftView.png
+│   ├── harshPicRightView.png
+│   │
+│   ├── ufo1.png
+│   ├── ufo2.png
+│   ├── ufo3.png
+│   ├── ufo4.png
+│   ├── ufo5.png
+│   ├── ufo6.png
+│   ├── ufo7.png
+│   ├── ufo8.png
+│   └── demo.gif
 │
 ├── js/
-│   ├── game.js
-│   ├── player.js
 │   ├── alien.js
+│   ├── canvas.js
+│   ├── collision.js
+│   ├── game.js
+│   ├── lasers.js
 │   ├── missiles.js
-│   └── canvas.js
+│   ├── player.js
+│   └── sounds.js
 │
 ├── index.html
 ├── style.css
+├── script.js
 └── README.md
 ```
 
