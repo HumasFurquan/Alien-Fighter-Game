@@ -3,6 +3,7 @@
 [![CSS](https://img.shields.io/badge/CSS3-blue?logo=css3)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-yellow?logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![GitHub Pages](https://img.shields.io/badge/Deployed-GitHub%20Pages-success)](https://pages.github.com/)
+[![GitHub stars](https://img.shields.io/github/stars/HumasFurquan/Alien-Fighter-Game?style=social)](https://github.com/HumasFurquan/Alien-Fighter-Game/stargazers)
 
 A fast-paced **2D space shooter game** built using **HTML, CSS, and Vanilla JavaScript**.  
 Survive as long as possible while dodging alien attacks and shooting down UFOs in a dynamic animated space environment.
