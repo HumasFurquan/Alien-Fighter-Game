@@ -184,7 +184,7 @@ GitHub: [https://github.com/HumasFurquan](https://github.com/HumasFurquan)
 
 ## 📄 License
 
-This project is licensed under the **MIT License**.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
